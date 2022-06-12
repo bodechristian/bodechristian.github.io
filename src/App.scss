@@ -12,6 +12,7 @@ body {
 /* 
   Helper Classes
 */
+
 .flex-center {
   display: flex;
   flex-direction: column;
@@ -22,6 +23,7 @@ body {
 /*
   Classes
 */
+
 .navbar {
   margin: 0px;
   padding: 15px 10px;
@@ -38,12 +40,13 @@ body {
 
 a {
   color: inherit;
-}
-a:hover {
-  text-decoration: none;
-  color: inherit;
-  opacity: 70%;
-  transition: all 0.3s;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+    opacity: 70%;
+    transition: all 0.3s;
+  }
 }
 
 .card-audio {
@@ -51,12 +54,14 @@ a:hover {
   background: #33343b;
   border-radius: 1.5em;
   transition: transform 0.7s ease-in-out;
-}
-.card-audio * {
-  margin: 1em;
-}
-.card-audio:hover {
-  transform: scale(1.3);
+
+  * {
+    margin: 1em;
+  }
+
+  &:hover {
+    transform: scale(1.3);
+  }
 }
 
 .wrapper {
@@ -71,4 +76,4 @@ a:hover {
 
 .content {
   flex: 1;
-}/*# sourceMappingURL=App.css.map */
+}
