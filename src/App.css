@@ -15,7 +15,6 @@ body {
 .flex-center {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -71,4 +70,60 @@ a:hover {
 
 .content {
   flex: 1;
+}
+
+.board {
+  display: grid;
+  background: red;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  aspect-ratio: 1/1;
+  height: 600px;
+}
+.board div {
+  background: rgb(179, 149, 122);
+}
+.board div:nth-child(16n+2) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+4) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+6) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+8) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+9) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+11) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+13) {
+  background: rgb(117, 83, 58);
+}
+.board div:nth-child(16n+15) {
+  background: rgb(117, 83, 58);
+}
+
+.tile:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.ivAnOY {
+  height: 1.2em !important;
+  width: 1.2em !important;
+  font-size: 24px !important;
+}
+
+.cb-yellows {
+  height: 1em;
+  width: 1em;
+}
+
+.rows-yellows {
+  gap: 2px;
+  align-items: center;
 }/*# sourceMappingURL=App.css.map */

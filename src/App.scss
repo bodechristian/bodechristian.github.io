@@ -16,7 +16,6 @@ body {
 .flex-center {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -76,4 +75,49 @@ a {
 
 .content {
   flex: 1;
+}
+
+.board {
+  display:grid;
+  background:red;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  aspect-ratio: 1 / 1;
+  height: 600px;
+
+  div {
+    background: rgba(179, 149, 122, 1);
+    @each $offset in 2 4 6 8 9 11 13 15 {
+      &:nth-child(16n + #{$offset}) {
+        background: rgba(117, 83, 58, 1);
+      }
+    }
+  }
+}
+
+.tile {
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+  img {
+    
+  }
+}
+
+.ivAnOY {
+  height: 1.2em !important;
+  width: 1.2em !important;
+  font-size: 24px !important;
+}
+
+.cb-yellows {
+  height: 1em;
+  width: 1em;
+}
+
+.rows-yellows {
+  gap: 2px;
+  align-items: center;
 }
