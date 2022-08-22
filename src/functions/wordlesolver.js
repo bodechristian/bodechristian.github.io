@@ -14,7 +14,6 @@ function updateWordlist(greens, yellows, reds) {
         }
 
         // yellows
-        console.log("yellows")
         for(let [letter, idx] of yellows) {
             if(!word.includes(letter) || word[idx] === letter) {
                 keep = false;
