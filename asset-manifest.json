@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/website_react/static/css/main.ab5b11c4.css",
+    "main.js": "/website_react/static/js/main.c0bfe086.js",
+    "static/media/Crazy.mpeg": "/website_react/static/media/Crazy.9a2216bae195e4875e56.mpeg",
+    "static/media/Lullaby.mpeg": "/website_react/static/media/Lullaby.f40d0f79b5140d8aa6cb.mpeg",
+    "static/media/Glueck_und_Segen.mpeg": "/website_react/static/media/Glueck_und_Segen.209afb0ce8f6711e2ed5.mpeg",
+    "index.html": "/website_react/index.html",
+    "main.ab5b11c4.css.map": "/website_react/static/css/main.ab5b11c4.css.map",
+    "main.c0bfe086.js.map": "/website_react/static/js/main.c0bfe086.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ab5b11c4.css",
+    "static/js/main.c0bfe086.js"
+  ]
+}
