@@ -1,6 +1,5 @@
 import React from 'react';
 import { solve } from '../functions/wordlesolver';
-import RICIBs from 'react-individual-character-input-boxes';
 import RowYellow from '../components/RowYellow';
 
 class WordleSolver extends React.Component {
@@ -18,7 +17,7 @@ class WordleSolver extends React.Component {
       ],
       yellow_letters: ["", "", "", "", ""],
       reds: "",
-      solutions: "solutionasdfasfdasfdsfs",
+      solutions: "",
     };
 
     this.handleChangeReds = this.handleChangeReds.bind(this);

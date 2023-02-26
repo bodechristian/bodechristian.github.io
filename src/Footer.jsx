@@ -15,7 +15,7 @@ const Footer = () => {
                         <ul className="list-unstyled text-muted mb-0">
                             <li><a href="/">Home</a></li>
                             <li><a href="/wordle">Wordle</a></li>
-                            <li><a href="/vid">Video</a></li>
+                            <li><a href="/video">Video</a></li>
                             <li><a href="/recordings">Recordings</a></li>
                         </ul>
                     </div>
