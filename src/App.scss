@@ -100,10 +100,6 @@ a {
     opacity: 0.6;
     cursor: pointer;
   }
-
-  img {
-    
-  }
 }
 
 .ivAnOY {
@@ -133,6 +129,15 @@ a {
   align-items: center;
 }
 
+.row_addplayer {
+  min-width: 800px;
+  margin-bottom: 20px;
+}
+
+.form-control {
+  min-width:300px;
+}
+
 
 /* 
 =================
@@ -143,7 +148,6 @@ Table
 .tables_container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
 }
 
 .table_container {
@@ -181,7 +185,7 @@ th.down {
 
 table td {
   border-top: 1px solid #ddd;
-  padding: 8px 20px;
+  padding: 3px 10px;
 }
 
 table tbody tr:first-child td {
