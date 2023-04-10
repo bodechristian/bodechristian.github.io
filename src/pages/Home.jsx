@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
   return (
     <div>
-      <input type="text"/>
+      <h3>WASSUP</h3>
     </div>
   );
 };
