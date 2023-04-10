@@ -141,9 +141,14 @@ a:hover {
 Table
 =====================
 */
+.tables_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
 .table_container {
   max-width: 500px;
-  /* max-height: 500px; */
   margin: 0 auto;
   overflow: auto;
 }

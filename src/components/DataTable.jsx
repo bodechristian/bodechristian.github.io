@@ -28,6 +28,7 @@ const DataTable = ({data}) => {
     };
 
     const handleSorting = (sortField, sortOrder) => {
+        console.log(sortField);
         if (sortField) {
          const sorted = [...tableData].sort((a, b) => {
           return (

@@ -35,12 +35,14 @@ const KZTourney = () => {
         <div>
             <h3>KZ Tourney</h3>
             <button onClick={() => loadTimes()}>Load</button>
-            {times.map(player_data => (
-                <div className="table_container">
-                    <h5>{Object.keys(player_data)[0]}</h5>
-                    <DataTable data={player_data}/>
-                </div>
-            ))}
+            <div className='tables_container'>
+                {times.map(player_data => (
+                    <div className="table_container">
+                        <h5>{Object.keys(player_data)[0]}</h5>
+                        <DataTable data={player_data}/>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
