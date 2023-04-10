@@ -160,6 +160,10 @@ table th {
   border-bottom: 1px solid #1a1a1a;
   font-weight: bold;
   text-align: left;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 th.up,

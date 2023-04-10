@@ -162,6 +162,9 @@ table th {
   font-weight: bold;
   text-align: left;
 }
+table th:hover {
+  cursor: pointer;
+}
 
 th.up,
 th.default,
