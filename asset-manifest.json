@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.ab5b11c4.css",
-    "main.js": "/static/js/main.a16c154a.js",
+    "main.css": "/static/css/main.2c437087.css",
+    "main.js": "/static/js/main.1a9e656a.js",
     "static/media/Crazy.mpeg": "/static/media/Crazy.9a2216bae195e4875e56.mpeg",
     "static/media/Lullaby.mpeg": "/static/media/Lullaby.f40d0f79b5140d8aa6cb.mpeg",
     "static/media/Glueck_und_Segen.mpeg": "/static/media/Glueck_und_Segen.209afb0ce8f6711e2ed5.mpeg",
     "index.html": "/index.html",
-    "main.ab5b11c4.css.map": "/static/css/main.ab5b11c4.css.map",
-    "main.a16c154a.js.map": "/static/js/main.a16c154a.js.map"
+    "main.2c437087.css.map": "/static/css/main.2c437087.css.map",
+    "main.1a9e656a.js.map": "/static/js/main.1a9e656a.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab5b11c4.css",
-    "static/js/main.a16c154a.js"
+    "static/css/main.2c437087.css",
+    "static/js/main.1a9e656a.js"
   ]
 }
