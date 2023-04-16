@@ -4,13 +4,19 @@ import { useState } from 'react';
 
 const DataTable = ({data, doTier}) => {
     const [tableData, setTableData] = useState([]);
-    const [sortField, setSortField] = useState("");
+    const [sortField, setSortField] = useState("map_name");
     const [order, setOrder] = useState("asc");
 
     var name = Object.keys(data)[0];
     var runs = Object.values(data)[0];
 
-    useEffect(() => setTableData(runs), []);
+    // default sort by map name
+    useEffect(() => {const sortedRuns = [...runs].sort((a, b) => {
+                        return (
+                            a["map_name"].toString().localeCompare(b["map_name"].toString(), "en", {numeric: true,})
+                        );}); 
+                        setTableData(sortedRuns)}
+            , []);
 
     const columns = [
         { label: "Map", accessor: "map_name" },
