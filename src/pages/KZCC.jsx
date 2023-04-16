@@ -84,6 +84,7 @@ const KZTourney = () => {
         });
         teamAvgs["team"] = team;
 
+        // create list of fastest times to highlight
         let data = {"kz_alt_cargo": 10000, "kz_bored": 10000, "kz_hyroblock": 10000, "kz_igneous": 10000, 
                 "kz_module": 10000, "kzpro_concrete_c02": 10000, "xc_powerblock_rc1": 10000};
         let result = {"kz_alt_cargo": "", "kz_bored": "", 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import DataTable from '../components/DataTable';
 
@@ -13,12 +13,22 @@ const KZTourney = () => {
     const [times, setTimes] = useState([]); // [{name1: [{map:kz_a, time:5...}, {...}, ...]}, {name2: ...}, ...]
     const [playername, setPlayername] = useState("STEAM_1:0:18890328");
     const [mapIDName, setMapIDName] = useState({});
+    const [fastestPlayer, setFastestPlayer] = useState({})
 
     function convTime(time) {        
         var m = 0;
         var s = (time % 60).toFixed(3);
         if(time > 60) { m = Math.floor(time/60)}
         return m===0 ? time : String(m) + ":" + ('000000'+s).slice(-6);
+    }
+
+    function unconvTime(str) {
+        var a = String(str).split(":");
+        if(a.length===2) {
+            return +a[0]*60 + +a[1];
+        } else {
+            return +a[0]
+        }
     }
 
     function addPlayer() {
@@ -55,7 +65,25 @@ const KZTourney = () => {
                 unplayedMaps = unplayedMaps.map(aMap => {return {"map_name": aMap}})
                 data = [...data, ...unplayedMaps];
                 return data})
-            .then(data => setTimes([...times, {"id": id, "runs": data}]));
+            .then(res => {
+                // create list of fastest times to highlight
+                let data = {};
+                let result = {};
+                maps.forEach(map => {data[map] = 10000; result[map] = ""});
+                res = [...times, {"id": id, "runs": res}];
+
+                res.forEach(player => {
+                    player["runs"].forEach(run => {
+                        if(unconvTime(run["time"]) < data[run["map_name"]]) {
+                            result[run["map_name"]] = run["player_name"];
+                            data[run["map_name"]] = unconvTime(run["time"]);
+                        }
+                    
+                    })   
+                })
+                setFastestPlayer(result);
+                return res;})
+            .then(data => setTimes(data));
         return requestURL;
     }
 
@@ -68,10 +96,11 @@ const KZTourney = () => {
                 <button className='btn-primary btn' onClick={() => addPlayer()}>Add</button>
             </div>
             <div className='tables_container grid-3'>
-                {times.map(player_data => (
-                    <div className="table_container">
+                {times.map((player_data, i) => (
+                    <div className="table_container" key={i}>
                         <h5>{mapIDName[player_data.id]}</h5>
-                        <DataTable data={player_data} doTier={true} />
+                        <DataTable data={player_data} team={mapIDName[player_data.id]} 
+                                fastestTeams={fastestPlayer} doTier={true} />
                     </div>
                 ))}
             </div>
