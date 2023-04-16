@@ -2,13 +2,12 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const DataTable = ({data, doTier}) => {
+const DataTable = ({data, team, fastestTeams, doTier}) => {
     const [tableData, setTableData] = useState([]);
     const [sortField, setSortField] = useState("map_name");
     const [order, setOrder] = useState("asc");
 
-    var name = Object.keys(data)[0];
-    var runs = Object.values(data)[0];
+    var runs = data.runs
 
     // default sort by map name
     useEffect(() => {const sortedRuns = [...runs].sort((a, b) => {
@@ -67,7 +66,8 @@ const DataTable = ({data, doTier}) => {
                     <tr key={i}>
                         {columns.map(({ accessor }) => {
                             if(!doTier && accessor === "tier") { return}
-                            else {return <td key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>;}
+                            else {return <td style={{background: team==fastestTeams[runs["map_name"]]?"gold":""}} 
+                                                key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>}
                         })}
                     </tr>
                     );

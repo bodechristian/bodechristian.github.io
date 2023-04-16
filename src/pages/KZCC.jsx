@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import DataTable from '../components/DataTable';
 
@@ -12,9 +12,9 @@ const KZTourney = () => {
                 "Team nykaN": [["STEAM_1:1:120613467", "makis"], ["STEAM_1:1:151062938", "tony"], ["STEAM_1:1:236646428", "tatska"]],
                 "KURBASHI GANG": [["STEAM_1:1:194388317", "sampge"], ["STEAM_1:1:11621314", "Kurbashi"], ["STEAM_1:1:83728056", "shy"]],
                 "Cool Boys Team": [["STEAM_1:1:168575119", "Flonnych"], ["STEAM_1:1:65663138", "Blacky"], ["STEAM_1:1:116739970", "M u g e n"]],
-                "John Deer Gaming": [["STEAM_1:0:90225250", "sage"], ["STEAM_1:0:73768036", "Kiwijord"], ["STEAM_1:0:52178142", "maeson"]],
+                "John Deere Gaming": [["STEAM_1:0:90225250", "sage"], ["STEAM_1:0:73768036", "Kiwijord"], ["STEAM_1:0:52178142", "maeson"]],
                 "iBUYPOWER": [["STEAM_1:1:24049284", "Harry_pootha"], ["STEAM_1:0:510052581", "Kebab 101"], ["STEAM_0:0:159882417", "Honza"]],
-                "Homies w/ Extra Cromies": [["STEAM_1:1:31653734", "Ebun"], ["STEAM_0:0:120327391", "Larry"], ["STEAM_1:0:165881949", "gosh"]]}
+                "Homies w/ Extra Chromies": [["STEAM_1:1:31653734", "Ebun"], ["STEAM_0:0:120327391", "Larry"], ["STEAM_1:0:165881949", "gosh"]]}
     
     const teamColorsMapping = {"No Alias": "#6E6061",
                                 "Human Growth Hormones": "#DC224E",
@@ -27,8 +27,11 @@ const KZTourney = () => {
 
 
     const [times, setTimes] = useState([]); // [{name1: [{map:kz_a, time:5...}, {...}, ...]}, {name2: ...}, ...]
-    const [mapIDName, setMapIDName] = useState({});
     const [teamNameOrder, setTeamNameOrder] = useState([]);
+    const [teamAverages, setTeamAverages] = useState([]);
+    const [fastestTeam, setFastestTeam] = useState({"kz_alt_cargo": "", "kz_bored": "", 
+                                                "kz_hyroblock": "", "kz_igneous": "", "kz_module": "",
+                                                "kzpro_concrete_c02": "", "xc_powerblock_rc1": ""})                      
 
     function convTime(time) {        
         var m = 0;
@@ -51,30 +54,54 @@ const KZTourney = () => {
             const idx = teamNameOrder.indexOf(team);
             setTimes(temp => temp.filter((el, i) => i !== idx));
             setTeamNameOrder(temp => temp.filter((el, i) => i !== idx));
+            setTeamAverages(temp => temp.filter((el, i) => i !== idx));
             return;
         }
 
         const lst = teams[team];
-        var mapidtoname = {}
 
         const teamTimes = await Promise.all(
             lst.map(async ([id, name], i) => {
-                mapidtoname = {...mapidtoname, [id]:name};
                 const aTime = await loadTimes(id);
-                return {[id]: aTime};
+                return {"name": name, "id": id, "runs": aTime};
         }));
 
-        setMapIDName({...mapIDName, ...mapidtoname});
-        // console.log(teamTimes);
-        // const timesOnly = teamTimes.map(player => player[Object.keys(player)[0]].forEach(el => ({[el["map_name"]]: unconvTime(el["time"])})))
-        // console.log(timesOnly);
-        // const timesAvg = [];
-        // maps.map(mapname => {
-        //     timesAvg.push(timesOnly[0][mapname] + timesOnly[1][mapname] + timesOnly[2][mapname])
-        // });
-        // console.log(timesOnly[0]);
-        setTimes([...times, teamTimes]);
+        var teamAvgs = {"kz_alt_cargo": 0, "kz_bored": 0, "kz_hyroblock": 0, "kz_igneous": 0, "kz_module": 0,
+                         "kzpro_concrete_c02": 0, "xc_powerblock_rc1": 0}
+        Object.keys(teamAvgs).forEach((aMap, i) => {
+            for(var j = 1; j<=3; j++) {
+                var temp = teamTimes[j-1].runs;
+                var theMap = temp.filter(el => el["map_name"] === aMap)[0]; // can say [0] cause every map is guaranteed to be in
+                let thisTime = 0;
+                if (theMap["time"]) {
+                    thisTime = unconvTime(theMap["time"]);
+                } else {
+                    thisTime = teamAvgs[aMap];
+                }
+                let prevTime = teamAvgs[aMap];
+                teamAvgs[aMap] = prevTime - (prevTime-thisTime)/j;
+            }
+        });
+        teamAvgs["team"] = team;
+
+        let data = {"kz_alt_cargo": 10000, "kz_bored": 10000, "kz_hyroblock": 10000, "kz_igneous": 10000, 
+                "kz_module": 10000, "kzpro_concrete_c02": 10000, "xc_powerblock_rc1": 10000};
+        let result = {"kz_alt_cargo": "", "kz_bored": "", 
+                        "kz_hyroblock": "", "kz_igneous": "", "kz_module": "",
+                        "kzpro_concrete_c02": "", "xc_powerblock_rc1": ""}
+        Object.keys(data).forEach(mapName => {
+            [...teamAverages, teamAvgs].forEach(teamAvg => {
+                if(teamAvg[mapName] < data[mapName]) {
+                    result[mapName] = teamAvg["team"];
+                    data[mapName] = teamAvg[mapName];
+                }
+            })
+        });
+        setFastestTeam(result);
+
         setTeamNameOrder([...teamNameOrder, team]);
+        setTeamAverages([...teamAverages, teamAvgs]);
+        setTimes([...times, teamTimes]);
     }
     
     async function loadTimes(id) {
@@ -109,10 +136,10 @@ const KZTourney = () => {
                     <h3 style={{gridColumnEnd: 'span 3', margin: '0 5px 15px 15px'}}>{teamNameOrder[i]}</h3>
                     {teamData.map((player_data, j) => (
                         <div className="table_container" key={j}>
-                            <a href={'https://kzgo.eu/players/' + Object.keys(player_data)[0]} target="_blank">
-                                <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
+                            <a href={'https://kzgo.eu/players/' + player_data.id} target="_blank">
+                                <h5>{player_data["name"]}</h5>
                             </a>
-                            <DataTable data={player_data} doTier={false}/>
+                            <DataTable data={player_data} fastestTeams={fastestTeam} team={teamNameOrder[i]} doTier={false}/>
                         </div>
                     ))}
                     </div>
