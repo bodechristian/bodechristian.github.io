@@ -66,7 +66,7 @@ const DataTable = ({data, team, fastestTeams, doTier}) => {
                     <tr key={i}>
                         {columns.map(({ accessor }) => {
                             if(!doTier && accessor === "tier") { return}
-                            else {return <td style={{background: team==fastestTeams[runs["map_name"]]?"gold":""}} 
+                            else {return <td style={{background: team && team==fastestTeams[runs["map_name"]]?"gold":""}} 
                                                 key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>}
                         })}
                     </tr>

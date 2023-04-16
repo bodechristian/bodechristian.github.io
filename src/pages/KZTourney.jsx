@@ -48,8 +48,14 @@ const KZTourney = () => {
             .then(data => data.map(el => {
                 var tier = Math.floor(maps.indexOf(el["map_name"])/5)+1;
                 var time = convTime(el["time"]);
-                return {...el, tier:tier, time:time}}))
-            .then(data => setTimes([...times, {[id]: data}]));
+                return {...el, tier:tier, time:time}})) 
+                // add unplayed maps
+            .then(data => {
+                var unplayedMaps = maps.filter(el => !data.map(x => x["map_name"]).includes(el))
+                unplayedMaps = unplayedMaps.map(aMap => {return {"map_name": aMap}})
+                data = [...data, ...unplayedMaps];
+                return data})
+            .then(data => setTimes([...times, {"id": id, "runs": data}]));
         return requestURL;
     }
 
@@ -61,11 +67,11 @@ const KZTourney = () => {
                         onChange={(a) => setPlayername(a.target.value)} placeholder="STEAM_1:0:18890328"/>
                 <button className='btn-primary btn' onClick={() => addPlayer()}>Add</button>
             </div>
-            <div className='tables_container'>
+            <div className='tables_container grid-3'>
                 {times.map(player_data => (
                     <div className="table_container">
-                        <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
-                        <DataTable data={player_data} doTier={true}/>
+                        <h5>{mapIDName[player_data.id]}</h5>
+                        <DataTable data={player_data} doTier={true} />
                     </div>
                 ))}
             </div>

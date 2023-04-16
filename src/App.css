@@ -168,9 +168,20 @@ Table
   grid-template-columns: repeat(1, 1fr);
 }
 
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+.tables_container {
+  width: 70vw;
+  position: relative;
+  left: calc(-35vw + 50%);
 }
 
 .table_container {
