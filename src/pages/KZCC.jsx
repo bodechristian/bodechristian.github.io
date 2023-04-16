@@ -81,11 +81,13 @@ const KZTourney = () => {
             </div>
             <div className='grid-1'>
                 {times.map((teamData, i) => (
-                    <div className="row-team grid-3" style={{backgroundColor: teamColorsMapping[teamNameOrder[i]]}} key={i}>
+                    <div className="row-team grid-3" style={{backgroundColor: teamColorsMapping[teamNameOrder[i]]}} key={i}>               
                     <h3 style={{gridColumnEnd: 'span 3', margin: '0 5px 15px 15px'}}>{teamNameOrder[i]}</h3>
                     {teamData.map((player_data, j) => (
                         <div className="table_container" key={j}>
-                            <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
+                            <a href={'https://kzgo.eu/players/' + Object.keys(player_data)[0]} target="_blank">
+                                <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
+                            </a>
                             <DataTable data={player_data} doTier={false}/>
                         </div>
                     ))}
