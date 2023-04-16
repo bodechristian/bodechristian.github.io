@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const DataTable = ({data}) => {
+const DataTable = ({data, doTier}) => {
     const [tableData, setTableData] = useState([]);
     const [sortField, setSortField] = useState("");
     const [order, setOrder] = useState("asc");
@@ -46,7 +46,8 @@ const DataTable = ({data}) => {
             <thead>
                 <tr>
                 {columns.map(({ label, accessor }) => {
-                return <th key={accessor} onClick={() => handleSortingChange(accessor)}>{label}</th>;
+                    if(!doTier && accessor === "tier") { return}
+                    else {return <th key={accessor} onClick={() => handleSortingChange(accessor)}>{label}</th>;}     
                 })}
                 </tr>
             </thead>
@@ -55,8 +56,8 @@ const DataTable = ({data}) => {
                     return (
                     <tr key={i}>
                         {columns.map(({ accessor }) => {
-                        const tData = runs[accessor] ? runs[accessor] : "——";
-                        return <td key={accessor}>{tData}</td>;
+                            if(!doTier && accessor === "tier") { return}
+                            else {return <td key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>;}
                         })}
                     </tr>
                     );

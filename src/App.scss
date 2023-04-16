@@ -134,6 +134,12 @@ a {
   margin-bottom: 20px;
 }
 
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
 .form-control {
   min-width:300px;
 }
@@ -148,6 +154,10 @@ Table
 .tables_container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .table_container {

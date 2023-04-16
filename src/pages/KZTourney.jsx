@@ -3,6 +3,7 @@ import { useState } from 'react';
 import DataTable from '../components/DataTable';
 
 const KZTourney = () => {
+    // Final Act
     var maps = ["kz_twiivo", "kz_antiquity", "kz_village", "kz_woodstock_v2", "kz_terablock",
                 "kz_bacho", "kz_dam", "kz_summercliff2_go", "kz_cdr_myst", "kz_hellinashop",
                 "kz_arrebol", "kz_megalodon", "kz_camembert", "kz_module", "kz_forchi",
@@ -22,8 +23,7 @@ const KZTourney = () => {
 
     function addPlayer() {
         if(playername.startsWith("STEAM") && !Object.keys(mapIDName).includes(playername)) {
-            var requestURL = "https://kztimerglobal.com/api/v2/players?steam_id=" + playername
-            fetch(requestURL)
+            fetch("https://kztimerglobal.com/api/v2/players?steam_id=" + playername)
                 .then(response => response.json())
                 .then(data => setMapIDName({...mapIDName, [playername]:data[0]["name"]}))
                 .then(() => loadTimes(playername));
@@ -55,7 +55,7 @@ const KZTourney = () => {
 
     return (
         <div>
-            <h3>KZ Tourney</h3>
+            <h3>Final Act</h3>
             <div className='row_addplayer form-inline'>
                 <input className='form-control' type="text" value={playername}
                         onChange={(a) => setPlayername(a.target.value)} placeholder="STEAM_1:0:18890328"/>
@@ -65,7 +65,7 @@ const KZTourney = () => {
                 {times.map(player_data => (
                     <div className="table_container">
                         <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
-                        <DataTable data={player_data}/>
+                        <DataTable data={player_data} doTier={true}/>
                     </div>
                 ))}
             </div>

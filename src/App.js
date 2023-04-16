@@ -6,6 +6,7 @@ import Video from './pages/Video';
 import Recordings from './pages/Recordings';
 import Chess from './pages/Chess';
 import KZTourney from './pages/KZTourney';
+import KZCC from './pages/KZCC'
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/recordings" element={<Recordings/>}/>
             <Route path="/chess" element={<Chess/>}/>
             <Route path="/kztourney" element={<KZTourney/>}/>
+            <Route path="/kzCC" element={<KZCC/>}/>
           </Routes>
         </div>
 
