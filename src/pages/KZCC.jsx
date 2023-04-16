@@ -26,7 +26,8 @@ const KZTourney = () => {
         return m===0 ? time : String(m) + ":" + ('000000'+s).slice(-6);
     }
 
-    async function addTeam(lst) {
+    async function addTeam(team) {
+        const lst = teams[team];
         var mapidtoname = {}
 
         const localTimes = await Promise.all(
@@ -45,7 +46,13 @@ const KZTourney = () => {
         const response = await fetch(requestURL);
         const json = await response.json();
         var data = json.filter(el => maps.includes(el["map_name"]))
-        data = data.map(el => {return {...el, time:convTime(el["time"])}})
+        data = data.map(el => {return {...el, time: convTime(el["time"])}})
+
+        // add unplayed maps
+        var unplayedMaps = maps.filter(el => !data.map(x => x["map_name"]).includes(el))
+        unplayedMaps = unplayedMaps.map(aMap => {return {"map_name": aMap}})
+        data = [...data, ...unplayedMaps]
+
         return data;
     }
 
@@ -54,7 +61,7 @@ const KZTourney = () => {
             <h3>Captain's Clash</h3>
             <div className="row">
                 {Object.keys(teams).map((team, i) => {
-                    return <button className='btn-secondary btn' onClick={() => addTeam(teams[team])} key={i}>{team}</button>
+                    return <button className='btn-secondary btn' onClick={() => addTeam(team)} key={i}>{team}</button>
                 })}
             </div>
             <div className='tables_container grid-3'>
