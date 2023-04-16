@@ -20,7 +20,7 @@ const KZTourney = () => {
                                 "Human Growth Hormones": "#DC224E",
                                 "Team nykaN": "#AF981A",
                                 "KURBASHI GANG": "#C57878",
-                                "Cool Boys Team": "#EFF192",
+                                "Cool Boys Team": "#e1e388",
                                 "John Deer Gaming": "#2CB963",
                                 "iBUYPOWER": "#D64345",
                                 "Homies w/ Extra Cromies": "#3498DB",}            
@@ -28,7 +28,7 @@ const KZTourney = () => {
 
     const [times, setTimes] = useState([]); // [{name1: [{map:kz_a, time:5...}, {...}, ...]}, {name2: ...}, ...]
     const [mapIDName, setMapIDName] = useState({});
-    const [teamColors, setTeamColors] = useState([]);
+    const [teamNameOrder, setTeamColors] = useState([]);
 
     function convTime(time) {        
         var m = 0;
@@ -50,7 +50,7 @@ const KZTourney = () => {
 
         setMapIDName({...mapIDName, ...mapidtoname});
         setTimes([...times, teamTimes]);
-        setTeamColors([...teamColors, team]);
+        setTeamColors([...teamNameOrder, team]);
     }
     
     async function loadTimes(id) {
@@ -73,13 +73,16 @@ const KZTourney = () => {
             <h3>Captain's Clash</h3>
             <div className="row">
                 {Object.keys(teams).map((team, i) => {
-                    return <button className='btn-secondary btn' onClick={() => addTeam(team)} key={i}>{team}</button>
+                    return <button className='btn-secondary btn' onClick={() => addTeam(team)} key={i}
+                                    style={{backgroundColor: teamColorsMapping[team]}}>
+                                {team}
+                            </button>
                 })}
             </div>
             <div className='grid-1'>
                 {times.map((teamData, i) => (
-                    <div className="row-team grid-3" style={{backgroundColor: teamColorsMapping[teamColors[i]]}} key={i}>
-                    <h3 style={{gridColumnEnd: 'span 3', margin: '0 5px 15px 15px'}}>{teamColors[i]}</h3>
+                    <div className="row-team grid-3" style={{backgroundColor: teamColorsMapping[teamNameOrder[i]]}} key={i}>
+                    <h3 style={{gridColumnEnd: 'span 3', margin: '0 5px 15px 15px'}}>{teamNameOrder[i]}</h3>
                     {teamData.map((player_data, j) => (
                         <div className="table_container" key={j}>
                             <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
