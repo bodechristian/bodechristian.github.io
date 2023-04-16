@@ -69,18 +69,19 @@ const KZTourney = () => {
         var teamAvgs = {}
         maps.forEach(map => {teamAvgs[map] = 0});
         Object.keys(teamAvgs).forEach((aMap, i) => {
+            let activeTimes = 0;
             for(var j = 1; j<=3; j++) {
                 var temp = teamTimes[j-1].runs;
                 var theMap = temp.filter(el => el["map_name"] === aMap)[0]; // can say [0] cause every map is guaranteed to be in
-                let thisTime = 0;
                 if (theMap["time"]) {
-                    thisTime = unconvTime(theMap["time"]);
-                } else {
-                    thisTime = teamAvgs[aMap];
+                    activeTimes += 1;
+                    let thisTime = unconvTime(theMap["time"]);
+                    let prevTime = teamAvgs[aMap];
+                    teamAvgs[aMap] = prevTime - (prevTime-thisTime)/activeTimes;
                 }
-                let prevTime = teamAvgs[aMap];
-                teamAvgs[aMap] = prevTime - (prevTime-thisTime)/j;
             }
+            // no one has a time on that map
+            if (activeTimes === 0) {teamAvgs[aMap] = 10000}
         });
         teamAvgs["team"] = team;
 
@@ -88,6 +89,7 @@ const KZTourney = () => {
         let data = {};
         let result = {};
         maps.forEach(map => {data[map] = 10000; result[map] = ""});
+        console.log(teamAvgs);
         Object.keys(data).forEach(mapName => {
             [...teamAverages, teamAvgs].forEach(teamAvg => {
                 if(teamAvg[mapName] < data[mapName]) {
