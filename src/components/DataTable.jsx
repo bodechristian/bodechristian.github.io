@@ -6,7 +6,6 @@ const DataTable = ({data, doTier}) => {
     const [tableData, setTableData] = useState([]);
     const [sortField, setSortField] = useState("map_name");
     const [order, setOrder] = useState("asc");
-    const [fastestTimes, setFastestTimes] = useState({}) // {map1: []}
 
     var name = Object.keys(data)[0];
     var runs = Object.values(data)[0];
@@ -68,7 +67,7 @@ const DataTable = ({data, doTier}) => {
                     <tr key={i}>
                         {columns.map(({ accessor }) => {
                             if(!doTier && accessor === "tier") { return}
-                            else {return <td className='gold' key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>;}
+                            else {return <td key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>;}
                         })}
                     </tr>
                     );

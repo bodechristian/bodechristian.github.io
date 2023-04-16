@@ -21,14 +21,14 @@ const KZTourney = () => {
                                 "Team nykaN": "#AF981A",
                                 "KURBASHI GANG": "#C57878",
                                 "Cool Boys Team": "#e1e388",
-                                "John Deer Gaming": "#2CB963",
+                                "John Deere Gaming": "#2CB963",
                                 "iBUYPOWER": "#D64345",
-                                "Homies w/ Extra Cromies": "#3498DB",}            
+                                "Homies w/ Extra Chromies": "#3498DB",}            
 
 
     const [times, setTimes] = useState([]); // [{name1: [{map:kz_a, time:5...}, {...}, ...]}, {name2: ...}, ...]
     const [mapIDName, setMapIDName] = useState({});
-    const [teamNameOrder, setTeamColors] = useState([]);
+    const [teamNameOrder, setTeamNameOrder] = useState([]);
 
     function convTime(time) {        
         var m = 0;
@@ -37,7 +37,23 @@ const KZTourney = () => {
         return m===0 ? time : String(m) + ":" + ('000000'+s).slice(-6);
     }
 
+    function unconvTime(str) {
+        var a = String(str).split(":");
+        if(a.length===2) {
+            return +a[0]*60 + +a[1];
+        } else {
+            return +a[0]
+        }
+    }
+
     async function addTeam(team) {
+        if(teamNameOrder.includes(team)) {
+            const idx = teamNameOrder.indexOf(team);
+            setTimes(temp => temp.filter((el, i) => i !== idx));
+            setTeamNameOrder(temp => temp.filter((el, i) => i !== idx));
+            return;
+        }
+
         const lst = teams[team];
         var mapidtoname = {}
 
@@ -49,8 +65,16 @@ const KZTourney = () => {
         }));
 
         setMapIDName({...mapIDName, ...mapidtoname});
+        // console.log(teamTimes);
+        // const timesOnly = teamTimes.map(player => player[Object.keys(player)[0]].forEach(el => ({[el["map_name"]]: unconvTime(el["time"])})))
+        // console.log(timesOnly);
+        // const timesAvg = [];
+        // maps.map(mapname => {
+        //     timesAvg.push(timesOnly[0][mapname] + timesOnly[1][mapname] + timesOnly[2][mapname])
+        // });
+        // console.log(timesOnly[0]);
         setTimes([...times, teamTimes]);
-        setTeamColors([...teamNameOrder, team]);
+        setTeamNameOrder([...teamNameOrder, team]);
     }
     
     async function loadTimes(id) {
