@@ -6,6 +6,7 @@ const DataTable = ({data, doTier}) => {
     const [tableData, setTableData] = useState([]);
     const [sortField, setSortField] = useState("map_name");
     const [order, setOrder] = useState("asc");
+    const [fastestTimes, setFastestTimes] = useState({}) // {map1: []}
 
     var name = Object.keys(data)[0];
     var runs = Object.values(data)[0];
@@ -34,14 +35,18 @@ const DataTable = ({data, doTier}) => {
     };
 
     const handleSorting = (sortField, sortOrder) => {
-        console.log(sortField);
         if (sortField) {
          const sorted = [...tableData].sort((a, b) => {
-          return (
-           a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
-            numeric: true,
-           }) * (sortOrder === "asc" ? 1 : -1)
-          );
+            if(sortField==="time" && a["time"].length != b["time"].length){
+                // properly sort times with different lengths. E.g. sub1 minute and >1minute
+                if(a["time"].length < b["time"].length) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            } else {
+                return a[sortField].toString().localeCompare(b[sortField].toString(), "en", {numeric: true,}) * (sortOrder === "asc" ? 1 : -1);
+            }
          });
          setTableData(sorted);
         }
@@ -63,7 +68,7 @@ const DataTable = ({data, doTier}) => {
                     <tr key={i}>
                         {columns.map(({ accessor }) => {
                             if(!doTier && accessor === "tier") { return}
-                            else {return <td key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>;}
+                            else {return <td className='gold' key={accessor}>{runs[accessor] ? runs[accessor] : "——"}</td>;}
                         })}
                     </tr>
                     );

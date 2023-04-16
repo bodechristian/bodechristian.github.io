@@ -220,4 +220,16 @@ table tbody tr:nth-child(n) td {
 
 table tbody tr:nth-child(2n) td {
   background: #fff;
+}
+
+.gold {
+  background: #FECF4D !important;
+}
+
+.silver {
+  background: #CDCDCD !important;
+}
+
+.bronze {
+  background: #A96A27 !important;
 }/*# sourceMappingURL=App.css.map */
