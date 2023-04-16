@@ -16,8 +16,19 @@ const KZTourney = () => {
                 "iBUYPOWER": [["STEAM_1:1:24049284", "Harry_pootha"], ["STEAM_1:0:510052581", "Kebab 101"], ["STEAM_0:0:159882417", "Honza"]],
                 "Homies w/ Extra Cromies": [["STEAM_1:1:31653734", "Ebun"], ["STEAM_0:0:120327391", "Larry"], ["STEAM_1:0:165881949", "gosh"]]}
     
+    const teamColorsMapping = {"No Alias": "#6E6061",
+                                "Human Growth Hormones": "#DC224E",
+                                "Team nykaN": "#AF981A",
+                                "KURBASHI GANG": "#C57878",
+                                "Cool Boys Team": "#EFF192",
+                                "John Deer Gaming": "#2CB963",
+                                "iBUYPOWER": "#D64345",
+                                "Homies w/ Extra Cromies": "#3498DB",}            
+
+
     const [times, setTimes] = useState([]); // [{name1: [{map:kz_a, time:5...}, {...}, ...]}, {name2: ...}, ...]
     const [mapIDName, setMapIDName] = useState({});
+    const [teamColors, setTeamColors] = useState([]);
 
     function convTime(time) {        
         var m = 0;
@@ -30,15 +41,16 @@ const KZTourney = () => {
         const lst = teams[team];
         var mapidtoname = {}
 
-        const localTimes = await Promise.all(
+        const teamTimes = await Promise.all(
             lst.map(async ([id, name], i) => {
                 mapidtoname = {...mapidtoname, [id]:name};
                 const aTime = await loadTimes(id);
                 return {[id]: aTime};
         }));
 
-        setMapIDName({...mapIDName, ...mapidtoname})
-        setTimes([...times, ...localTimes])
+        setMapIDName({...mapIDName, ...mapidtoname});
+        setTimes([...times, teamTimes]);
+        setTeamColors([...teamColors, team]);
     }
     
     async function loadTimes(id) {
@@ -64,11 +76,16 @@ const KZTourney = () => {
                     return <button className='btn-secondary btn' onClick={() => addTeam(team)} key={i}>{team}</button>
                 })}
             </div>
-            <div className='tables_container grid-3'>
-                {times.map(player_data => (
-                    <div className="table_container">
-                        <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
-                        <DataTable data={player_data} doTier={false}/>
+            <div className='grid-1'>
+                {times.map((teamData, i) => (
+                    <div className="row-team grid-3" style={{backgroundColor: teamColorsMapping[teamColors[i]]}} key={i}>
+                    <h3 style={{gridColumnEnd: 'span 3', margin: '0 5px 15px 15px'}}>{teamColors[i]}</h3>
+                    {teamData.map((player_data, j) => (
+                        <div className="table_container" key={j}>
+                            <h5>{mapIDName[Object.keys(player_data)[0]]}</h5>
+                            <DataTable data={player_data} doTier={false}/>
+                        </div>
+                    ))}
                     </div>
                 ))}
             </div>
