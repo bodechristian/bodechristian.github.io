@@ -66,8 +66,8 @@ const KZTourney = () => {
                 return {"name": name, "id": id, "runs": aTime};
         }));
 
-        var teamAvgs = {"kz_alt_cargo": 0, "kz_bored": 0, "kz_hyroblock": 0, "kz_igneous": 0, "kz_module": 0,
-                         "kzpro_concrete_c02": 0, "xc_powerblock_rc1": 0}
+        var teamAvgs = {}
+        maps.forEach(map => {teamAvgs[map] = 0});
         Object.keys(teamAvgs).forEach((aMap, i) => {
             for(var j = 1; j<=3; j++) {
                 var temp = teamTimes[j-1].runs;
@@ -85,11 +85,9 @@ const KZTourney = () => {
         teamAvgs["team"] = team;
 
         // create list of fastest times to highlight
-        let data = {"kz_alt_cargo": 10000, "kz_bored": 10000, "kz_hyroblock": 10000, "kz_igneous": 10000, 
-                "kz_module": 10000, "kzpro_concrete_c02": 10000, "xc_powerblock_rc1": 10000};
-        let result = {"kz_alt_cargo": "", "kz_bored": "", 
-                        "kz_hyroblock": "", "kz_igneous": "", "kz_module": "",
-                        "kzpro_concrete_c02": "", "xc_powerblock_rc1": ""}
+        let data = {};
+        let result = {};
+        maps.forEach(map => {data[map] = 10000; result[map] = ""});
         Object.keys(data).forEach(mapName => {
             [...teamAverages, teamAvgs].forEach(teamAvg => {
                 if(teamAvg[mapName] < data[mapName]) {
