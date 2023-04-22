@@ -177,6 +177,8 @@ Table
   width: 70vw;
   position: relative;
   left: calc(-35vw + 50%);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .table_container {

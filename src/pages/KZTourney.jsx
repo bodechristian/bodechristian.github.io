@@ -51,7 +51,7 @@ const KZTourney = () => {
     }
     
     function loadTimes(id) {
-        var requestURL = 'https://kztimerglobal.com/api/v2/records/top/recent?steam_id='+id+'&has_teleports=false&tickrate=128&stage=0&modes_list_string=kz_timer&limit=1000';
+        var requestURL = 'https://kztimerglobal.com/api/v2/records/top?steam_id='+id+'&has_teleports=false&tickrate=128&stage=0&modes_list_string=kz_timer&limit=1000';
         fetch(requestURL)
             .then(response => response.json())
             .then(data => data.filter(el => maps.includes(el["map_name"])))
@@ -95,7 +95,7 @@ const KZTourney = () => {
                         onChange={(a) => setPlayername(a.target.value)} placeholder="STEAM_1:0:18890328"/>
                 <button className='btn-primary btn' onClick={() => addPlayer()}>Add</button>
             </div>
-            <div className='tables_container grid-3'>
+            <div className='tables_container'>
                 {times.map((player_data, i) => (
                     <div className="table_container" key={i}>
                         <h5>{mapIDName[player_data.id]}</h5>

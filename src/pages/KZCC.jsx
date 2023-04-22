@@ -106,7 +106,7 @@ const KZTourney = () => {
     }
     
     async function loadTimes(id) {
-        var requestURL = 'https://kztimerglobal.com/api/v2/records/top/recent?steam_id='+id+'&has_teleports=false&tickrate=128&stage=0&modes_list_string=kz_timer&limit=1000';
+        var requestURL = 'https://kztimerglobal.com/api/v2/records/top?steam_id='+id+'&has_teleports=false&tickrate=128&stage=0&modes_list_string=kz_timer&limit=1000';
         const response = await fetch(requestURL);
         const json = await response.json();
         var data = json.filter(el => maps.includes(el["map_name"]))
