@@ -53,7 +53,7 @@ const KZTourney = () => {
         if(teamNameOrder.includes(team)) { // delete team if already in
             const idx = teamNameOrder.indexOf(team);
 
-            // create list of fastest times to highlight
+            // update list of fastest times to highlight
             let data = {};
             let result = {};
             maps.forEach(map => {data[map] = 10000; result[map] = ""});
@@ -81,22 +81,25 @@ const KZTourney = () => {
                 return {"name": name, "id": id, "runs": aTime};
         }));
 
-        var teamAvgs = {}
+        var teamAvgs = {} // {map1: 37, map2: 98, ...}
         maps.forEach(map => {teamAvgs[map] = 0});
         Object.keys(teamAvgs).forEach((aMap, i) => {
             let activeTimes = 0;
-            for(var j = 1; j<=3; j++) {
-                var temp = teamTimes[j-1].runs;
+            let tempTimes = []
+            for(var j = 0; j<3; j++) {
+                var temp = teamTimes[j].runs;
                 var theMap = temp.filter(el => el["map_name"] === aMap)[0]; // can say [0] cause every map is guaranteed to be in
                 if (theMap["time"]) {
                     activeTimes += 1;
                     let thisTime = unconvTime(theMap["time"]);
-                    let prevTime = teamAvgs[aMap];
-                    teamAvgs[aMap] = prevTime - (prevTime-thisTime)/activeTimes;
+                    tempTimes.push(thisTime)
                 }
             }
             // no one has a time on that map
-            if (activeTimes === 0) {teamAvgs[aMap] = 10000}
+            if (activeTimes === 0) {teamAvgs[aMap] = 10000}          
+            else {
+                teamAvgs[aMap] = tempTimes.reduce((a,b,i) => a - (a-b) / (i+1))
+            }
         });
         teamAvgs["team"] = team;
 
