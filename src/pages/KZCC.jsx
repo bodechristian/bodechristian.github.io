@@ -77,8 +77,11 @@ const KZTourney = () => {
 
         const teamTimes = await Promise.all(
             lst.map(async ([id, name], i) => {
-                const aTime = await loadTimes(id);
-                return {"name": name, "id": id, "runs": aTime};
+                const aTime = await loadTimes(id); // [{map: map, time:time,...}, {...}, ...]
+                let avg_points = aTime.reduce((a,b,i) => {if(b["points"]) {
+                    return a - (a-unconvTime(b["points"])) / (i+1)
+                } return a}, 0) 
+                return {"name": name, "id": id, "runs": aTime, "avg_points": Math.round(avg_points)};
         }));
 
         var teamAvgs = {} // {map1: 37, map2: 98, ...}
@@ -110,15 +113,12 @@ const KZTourney = () => {
                     }
                 })
                 teamAvgs[aMap] = (first + second) / 2
-                console.log(first);
-                console.log(second);
 
                 // iterative mean
                 // teamAvgs[aMap] = tempTimes.reduce((a,b,i) => a - (a-b) / (i+1)) 
             }
         });
         teamAvgs["team"] = team;
-        console.log(teamAvgs);
 
         // create list of fastest times to highlight
         let data = {};
@@ -172,7 +172,7 @@ const KZTourney = () => {
                     {teamData.map((player_data, j) => (
                         <div className="table_container" key={j}>
                             <a href={'https://kzgo.eu/players/' + player_data.id} target="_blank">
-                                <h5>{player_data["name"]}</h5>
+                                <h5>{player_data["name"]} ({player_data["avg_points"]})</h5>
                             </a>
                             <DataTable data={player_data} fastestTeams={fastestTeam} team={teamNameOrder[i]} doTier={false}/>
                         </div>
