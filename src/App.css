@@ -142,7 +142,7 @@ a:hover {
   margin-bottom: 20px;
 }
 
-.row {
+.row-teambuttons {
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
@@ -182,6 +182,8 @@ Table
   width: 70vw;
   position: relative;
   left: calc(-35vw + 50%);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .table_container {

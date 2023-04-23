@@ -157,7 +157,7 @@ const KZTourney = () => {
     return (
         <div>
             <h3>Captain's Clash</h3>
-            <div className="row">
+            <div className="row-teambuttons">
                 {Object.keys(teams).map((team, i) => {
                     return <button className='btn-secondary btn' onClick={() => addTeam(team)} key={i}
                                     style={{backgroundColor: teamColorsMapping[team]}}>
