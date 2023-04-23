@@ -50,8 +50,23 @@ const KZTourney = () => {
     }
 
     async function addTeam(team) {
-        if(teamNameOrder.includes(team)) {
+        if(teamNameOrder.includes(team)) { // delete team if already in
             const idx = teamNameOrder.indexOf(team);
+
+            // create list of fastest times to highlight
+            let data = {};
+            let result = {};
+            maps.forEach(map => {data[map] = 10000; result[map] = ""});
+            Object.keys(data).forEach(mapName => {
+                teamAverages.forEach(teamAvg => {
+                    if(teamAvg["team"] !== team && teamAvg[mapName] < data[mapName]) {
+                        result[mapName] = teamAvg["team"];
+                        data[mapName] = teamAvg[mapName];
+                    }
+                })
+            });
+            setFastestTeam(result);
+
             setTimes(temp => temp.filter((el, i) => i !== idx));
             setTeamNameOrder(temp => temp.filter((el, i) => i !== idx));
             setTeamAverages(temp => temp.filter((el, i) => i !== idx));
@@ -89,7 +104,6 @@ const KZTourney = () => {
         let data = {};
         let result = {};
         maps.forEach(map => {data[map] = 10000; result[map] = ""});
-        console.log(teamAvgs);
         Object.keys(data).forEach(mapName => {
             [...teamAverages, teamAvgs].forEach(teamAvg => {
                 if(teamAvg[mapName] < data[mapName]) {
