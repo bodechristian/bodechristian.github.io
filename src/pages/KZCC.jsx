@@ -79,7 +79,7 @@ const KZTourney = () => {
             lst.map(async ([id, name], i) => {
                 const aTime = await loadTimes(id); // [{map: map, time:time,...}, {...}, ...]
                 let avg_points = aTime.reduce((a,b,i) => {if(b["points"]) {
-                    return a - (a-unconvTime(b["points"])) / (i+1)
+                    return a - (a-b["points"]) / (i+1)
                 } return a}, 0) 
                 return {"name": name, "id": id, "runs": aTime, "avg_points": Math.round(avg_points)};
         }));
