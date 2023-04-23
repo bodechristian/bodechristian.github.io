@@ -84,6 +84,7 @@ const KZTourney = () => {
         var teamAvgs = {} // {map1: 37, map2: 98, ...}
         maps.forEach(map => {teamAvgs[map] = 0});
         Object.keys(teamAvgs).forEach((aMap, i) => {
+            // get all players times for a map
             let activeTimes = 0;
             let tempTimes = []
             for(var j = 0; j<3; j++) {
@@ -91,17 +92,33 @@ const KZTourney = () => {
                 var theMap = temp.filter(el => el["map_name"] === aMap)[0]; // can say [0] cause every map is guaranteed to be in
                 if (theMap["time"]) {
                     activeTimes += 1;
-                    let thisTime = unconvTime(theMap["time"]);
-                    tempTimes.push(thisTime)
+                    tempTimes.push(unconvTime(theMap["time"]))
                 }
             }
-            // no one has a time on that map
+            // if no one has a time on that map, set avg very high
             if (activeTimes === 0) {teamAvgs[aMap] = 10000}          
-            else {
-                teamAvgs[aMap] = tempTimes.reduce((a,b,i) => a - (a-b) / (i+1))
+            else { // otherwise calculate avg time
+                // top 2 times
+                let first, second;
+                tempTimes.forEach(el => {
+                    if(!first) {
+                        first = el;
+                    } else if (!second || el < second) {
+                        second = el;
+                    } else if (el < first) {
+                        first = el;
+                    }
+                })
+                teamAvgs[aMap] = (first + second) / 2
+                console.log(first);
+                console.log(second);
+
+                // iterative mean
+                // teamAvgs[aMap] = tempTimes.reduce((a,b,i) => a - (a-b) / (i+1)) 
             }
         });
         teamAvgs["team"] = team;
+        console.log(teamAvgs);
 
         // create list of fastest times to highlight
         let data = {};
