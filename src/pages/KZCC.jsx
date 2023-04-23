@@ -160,7 +160,7 @@ const KZTourney = () => {
             <div className="row-teambuttons">
                 {Object.keys(teams).map((team, i) => {
                     return <button className='btn-secondary btn' onClick={() => addTeam(team)} key={i}
-                                    style={{backgroundColor: teamColorsMapping[team]}}>
+                                    style={{backgroundColor: teamColorsMapping[team], opacity: teamNameOrder.includes(team)?1:0.5}}>
                                 {team}
                             </button>
                 })}
