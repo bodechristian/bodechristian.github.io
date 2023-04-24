@@ -8,7 +8,7 @@ const KZTourney = () => {
                 "xc_powerblock_rc1"]
 
     const teams = {"No Alias": [["STEAM_1:0:18890328", "FFM"],["STEAM_1:0:448781326", "Szwagi"], ["STEAM_1:1:196861182", "puff."]],
-                "Human Growth Hormones": [["STEAM_1:0:178573631", "AyayaBoy"], ["STEAM_1:1:121779585", "Rumble"], ["STEAM_1:1:117268758", "neon"]],
+                "Human Growth Hormones": [["STEAM_1:0:442994897", "kARKo"], ["STEAM_1:1:121779585", "Rumble"], ["STEAM_1:1:117268758", "neon"]],
                 "Team nykaN": [["STEAM_1:1:120613467", "makis"], ["STEAM_1:1:151062938", "tony"], ["STEAM_1:1:236646428", "tatska"]],
                 "KURBASHI GANG": [["STEAM_1:1:194388317", "sampge"], ["STEAM_1:1:11621314", "Kurbashi"], ["STEAM_1:1:83728056", "shy"]],
                 "Cool Boys Team": [["STEAM_1:1:168575119", "Flonnych"], ["STEAM_1:1:65663138", "Blacky"], ["STEAM_1:1:116739970", "M u g e n"]],
@@ -143,12 +143,21 @@ const KZTourney = () => {
         var requestURL = 'https://kztimerglobal.com/api/v2/records/top?steam_id='+id+'&has_teleports=false&tickrate=128&stage=0&modes_list_string=kz_timer&limit=1000';
         const response = await fetch(requestURL);
         const json = await response.json();
-        var data = json.filter(el => maps.includes(el["map_name"]))
-        data = data.map(el => {return {...el, time: convTime(el["time"])}})
+        var data_temp = json.filter(el => maps.includes(el["map_name"]))
+        data_temp = data_temp.map(el => {return {...el, time: convTime(el["time"])}})
+        
+        // remove possible duplicates (due to api stuff)
+        var data = data_temp.reduce((p, c) => {
+            if (!p.some((el) => { return el.map_name === c["map_name"]})) {
+                p.push(c);
+            }
+            return p;
+        }, []);
 
         // add unplayed maps
         var unplayedMaps = maps.filter(el => !data.map(x => x["map_name"]).includes(el))
         unplayedMaps = unplayedMaps.map(aMap => {return {"map_name": aMap}})
+
         data = [...data, ...unplayedMaps]
 
         return data;
