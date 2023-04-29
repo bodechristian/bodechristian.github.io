@@ -7,7 +7,7 @@ const KZTourney = () => {
     var maps = ["kz_alt_cargo", "kz_bored", "kz_hyroblock", "kz_igneous", "kz_module", "kzpro_concrete_c02",
                 "xc_powerblock_rc1"]
 
-    const teams = {"No Alias": [["STEAM_1:0:18890328", "FFM"],["STEAM_1:0:448781326", "Szwagi"], ["STEAM_1:1:196861182", "puff."]],
+    const teams = {"No Alias": [["STEAM_1:0:18890328", "FFM"], ["STEAM_1:0:122816464", "GiimPy"], ["STEAM_1:1:196861182", "puff."]], //, ["STEAM_1:0:448781326", "Szwagi"]
                 "Human Growth Hormones": [["STEAM_1:0:442994897", "kARKo"], ["STEAM_1:1:121779585", "Rumble"], ["STEAM_1:1:117268758", "neon"]],
                 "Team nykaN": [["STEAM_1:1:120613467", "makis"], ["STEAM_1:1:151062938", "tony"], ["STEAM_1:1:236646428", "tatska"]],
                 "KURBASHI GANG": [["STEAM_1:1:194388317", "sampge"], ["STEAM_1:1:11621314", "Kurbashi"], ["STEAM_1:1:83728056", "shy"]],
