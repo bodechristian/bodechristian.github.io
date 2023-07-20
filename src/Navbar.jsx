@@ -1,15 +1,23 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import kl from './assets/pieces/Chess_klt60.png';
 
 
 const Navbar = () => {
+  const [showSidebar, setShowSidebar] = React.useState(true);
+
   return (
     <nav className='navbar navbar-expand-lg'>
       <div className="container-fluid">
         <Link to="/">
           <h2 className='mb-0'>FFM's Page</h2>
         </Link>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className='d-block d-lg-none'>
+          <button className='btn-navbar' onClick={() => setShowSidebar(!showSidebar)}>
+            <img src={kl} alt='' style={{height:"30px", width:"30px"}}/>
+          </button>
+        </div>
+        <div className="collapse navbar-collapse" style={{display:showSidebar?'inline':'none'}} id="navbarSupportedContent">
 
           <ul className='navbar-list nav navbar-nav ml-auto'>
             <li className='nav-item'>

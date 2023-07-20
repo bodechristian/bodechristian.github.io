@@ -37,6 +37,16 @@ body {
   margin-left: auto;
 }
 
+.btn-navbar {
+  aspect-ratio: 1;
+  border: solid 2px transparent;
+  border-radius: 5px;
+  background: 
+    linear-gradient(135deg, #37344b, #1c1b1a) padding-box, 
+    #1d1b37 border-box;
+}
+
+
 a {
   color: inherit;
 
