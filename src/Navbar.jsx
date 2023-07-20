@@ -4,7 +4,7 @@ import kl from './assets/pieces/Chess_klt60.png';
 
 
 const Navbar = () => {
-  const [showSidebar, setShowSidebar] = React.useState(true);
+  const [showSidebar, setShowSidebar] = React.useState(false);
 
   return (
     <nav className='navbar navbar-expand-lg'>

@@ -42,6 +42,10 @@ body {
   background: linear-gradient(135deg, #37344b, #1c1b1a) padding-box, #1d1b37 border-box;
 }
 
+.nav-item-footer > * {
+  padding: 0 !important;
+}
+
 a {
   color: inherit;
 }
