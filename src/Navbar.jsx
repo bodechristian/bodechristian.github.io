@@ -10,19 +10,15 @@ const Navbar = () => {
     <nav className='navbar navbar-expand-lg'>
       <div className="container-fluid">
         <Link to="/">
-          <h2 className='mb-0'>FFM's Page</h2>
+          <h2 className='mb-0'>FFM</h2>
         </Link>
         <div className='d-block d-lg-none'>
           <button className='btn-navbar' onClick={() => setShowSidebar(!showSidebar)}>
-            <img src={kl} alt='' style={{height:"30px", width:"30px"}}/>
+            <img src={kl} alt='' style={{ height: "30px", width: "30px" }} />
           </button>
         </div>
-        <div className="collapse navbar-collapse" style={{display:showSidebar?'inline':'none'}} id="navbarSupportedContent">
-
+        <div className="collapse navbar-collapse" style={{ display: showSidebar ? 'inline' : 'none' }} id="navbarSupportedContent">
           <ul className='navbar-list nav navbar-nav ml-auto'>
-            <li className='nav-item'>
-              <Link to="/" className='nav-link'>Home</Link>
-            </li>
             <li className='nav-item'>
               <Link to="/kzCC" className='nav-link'>KZ-CC</Link>
             </li>
@@ -31,6 +27,9 @@ const Navbar = () => {
             </li>
             <li className='nav-item'>
               <Link to="/wordle" className='nav-link'>Wordle</Link>
+            </li>
+            <li className='nav-item'>
+              <Link to="/connections" className='nav-link'>Connections</Link>
             </li>
             <li className='nav-item'>
               <Link to="/video" className='nav-link'>Video</Link>

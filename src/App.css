@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   font-family: "Poppins", sans-serif;
   height: 100%;
   margin: 0;
@@ -161,6 +163,49 @@ a:hover {
 
 .form-control {
   min-width: 300px;
+}
+
+.connections-container .row {
+  height: 25%;
+  text-align: center;
+}
+.connections-container .row .col {
+  background-color: #e5e4e2;
+  border-radius: 5px;
+  font-weight: 600;
+  color: rgb(26, 32, 44);
+  font-size: 18px;
+  line-height: 27px;
+  text-transform: uppercase;
+  height: 80px;
+  width: 150px;
+  margin: 3px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #555555 !important;
+  color: #ffffff !important;
+}
+
+.con-item {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.modal-content {
+  width: 350px;
+  padding: 10px;
+  border-radius: 15px;
+  text-align: center;
+}
+.modal-content h2 {
+  text-align: center;
+  font-weight: 800;
+  color: rgb(26, 32, 44);
 }
 
 /* 

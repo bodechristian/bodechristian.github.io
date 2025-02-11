@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   font-family: "Poppins", sans-serif;
   height: 100%;
   margin: 0;
@@ -41,12 +43,12 @@ body {
   aspect-ratio: 1;
   border: solid 2px transparent;
   border-radius: 5px;
-  background: 
-    linear-gradient(135deg, #37344b, #1c1b1a) padding-box, 
+  background:
+    linear-gradient(135deg, #37344b, #1c1b1a) padding-box,
     #1d1b37 border-box;
 }
 
-.nav-item-footer > * {
+.nav-item-footer>* {
   padding: 0 !important;
 }
 
@@ -92,8 +94,8 @@ a {
 }
 
 .board {
-  display:grid;
-  background:red;
+  display: grid;
+  background: red;
   grid-template-columns: repeat(8, minmax(0, 1fr));
   grid-template-rows: repeat(8, minmax(0, 1fr));
   aspect-ratio: 1 / 1;
@@ -101,6 +103,7 @@ a {
 
   div {
     background: rgba(179, 149, 122, 1);
+
     @each $offset in 2 4 6 8 9 11 13 15 {
       &:nth-child(16n + #{$offset}) {
         background: rgba(117, 83, 58, 1);
@@ -130,7 +133,7 @@ a {
   border-radius: 5px;
   text-align: center;
   font-size: 34px;
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue', Arial sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial sans-serif;
 }
 
 .cb-yellows {
@@ -155,9 +158,53 @@ a {
 }
 
 .form-control {
-  min-width:300px;
+  min-width: 300px;
 }
 
+.connections-container {
+  .row {
+    height: 25%;
+    text-align: center;
+
+    .col {
+      background-color: #e5e4e2;
+      border-radius: 5px;
+      font-weight: 600;
+      color: rgb(26, 32, 44);
+      font-size: 18px;
+      line-height: 27px;
+      text-transform: uppercase;
+      height: 80px;
+      width: 150px;
+      margin: 3px;
+      user-select: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.selected {
+  background-color: #555555 !important;
+  color: #ffffff !important;
+}
+
+.con-item {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.modal-content {
+  width: 350px;
+  padding: 10px;
+  border-radius: 15px;
+  text-align: center;
+
+  h2 {
+    text-align: center;
+    font-weight: 800;
+    color: rgb(26, 32, 44);
+  }
+}
 
 /* 
 =================
@@ -169,7 +216,7 @@ Table
   padding: 20px 0;
   border-radius: 20px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-               rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset,
 }
 
 .grid-1 {
@@ -245,14 +292,14 @@ table tbody tr:nth-child(2n) td {
   background: #fff;
 }
 
-.gold  {
+.gold {
   background: #FECF4D !important;
 }
 
-.silver  {
+.silver {
   background: #CDCDCD !important;
 }
 
-.bronze  {
+.bronze {
   background: #A96A27 !important;
 }
